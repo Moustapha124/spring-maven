@@ -9,5 +9,12 @@ public class DemoGithubApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoGithubApplication.class, args);
 	}
+	@RestController
+class HelloWorldController {
+    @GetMapping("/")
+    public String sayHello() {
+        return "Hello, World!";
+    }
+
 
 }
