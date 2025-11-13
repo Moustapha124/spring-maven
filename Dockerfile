@@ -1,26 +1,30 @@
-# ----- STAGE 1 : Build Maven -----
+# ====== STAGE 1 — Build avec Maven ======
 FROM maven:3.9.5-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-# Copier pom.xml et télécharger les dépendances
+# Copier pom.xml pour télécharger les dépendances
 COPY pom.xml .
-RUN mvn -B dependency:resolve dependency:resolve-plugins
+RUN mvn -q -e dependency:resolve
 
-# Copier le code source et compiler
+# Copier le reste du code source
 COPY src ./src
-RUN mvn -B package -DskipTests=true
+
+# Générer le jar sans tests (Jenkins fera les tests)
+RUN mvn -q -e -DskipTests clean package
 
 
-# ----- STAGE 2 : Run -----
+# ====== STAGE 2 — Image finale (léger + rapide) ======
 FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Copier le .jar généré dans l'étape précédente
+# Copier le jar depuis l'étape build
 COPY --from=build /app/target/*.jar app.jar
 
+# Spring Boot écoute par défaut sur 8080
 EXPOSE 8080
 
-# Commande d'exécution
+# Commande principale
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
