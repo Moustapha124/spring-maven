@@ -56,7 +56,7 @@ pipeline {
                     repository: 'maven-releases',
                     credentialsId: 'nexus-credential',
                     artifacts: [
-                        [artifactId: APP_NAME, file: 'target/*.jar', type: 'jar']
+                        [artifactId: APP_NAME, file: 'target/demo-github-0.0.1-SNAPSHOT.jar', type: 'jar']
                     ]
                 )
             }
