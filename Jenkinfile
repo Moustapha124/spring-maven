@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/moustapha/TON-REPO.githttps://github.com/Moustapha124/spring-maven.git'
+                git branch: 'main', url: 'https://github.com/Moustapha124/spring-maven.git'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline {
                     groupId: 'com.moustapha',
                     version: '1.0.0',
                     repository: 'maven-releases',
-                    credentialsId: 'nexus-creds',
+                    credentialsId: 'nexus-credential',
                     artifacts: [
                         [artifactId: APP_NAME, file: 'target/*.jar', type: 'jar']
                     ]
