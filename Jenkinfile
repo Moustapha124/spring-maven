@@ -3,14 +3,14 @@ pipeline {
 
     environment {
         APP_NAME = "spring-app"
-        DOCKER_IMAGE = "moustapha/${APP_NAME}:latest"
+        DOCKER_IMAGE = "taphasr1/${APP_NAME}:latest"
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/moustapha/TON-REPO.git'
+                git branch: 'main', url: 'https://github.com/moustapha/TON-REPO.githttps://github.com/Moustapha124/spring-maven.git'
             }
         }
 
@@ -81,7 +81,7 @@ pipeline {
         stage('Push to DockerHub') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
+                    credentialsId: 'DOCKERHUB',
                     usernameVariable: 'USER',
                     passwordVariable: 'PASS'
                 )]) {
